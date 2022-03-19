@@ -9,7 +9,8 @@ import khrushchev.ilya.wheathercouroutinesandfastadapter.databinding.DayliWeathe
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.DayliWheatherModel
 
 class DayliWeatherItem(
-    private val dayliModel: DayliWheatherModel
+    private val dayliModel: DayliWheatherModel,
+    private val onItemClickListener: (DayliWheatherModel) -> Unit
 ) : AbstractBindingItem<DayliWeatherItemBinding>() {
 
     override var identifier: Long = dayliModel.hashCode().toLong()
@@ -34,5 +35,6 @@ class DayliWeatherItem(
         Picasso.get()
             .load("https://openweathermap.org/img/wn/${dayliModel.wheatherIconUrl}@2x.png")
             .into(binding.img)
+        binding.root.setOnClickListener { onItemClickListener(dayliModel) }
     }
 }

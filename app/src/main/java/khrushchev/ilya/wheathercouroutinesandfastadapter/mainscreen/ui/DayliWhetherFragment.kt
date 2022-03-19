@@ -14,6 +14,7 @@ import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
 import com.squareup.picasso.Picasso
 import khrushchev.ilya.wheathercouroutinesandfastadapter.R
 import khrushchev.ilya.wheathercouroutinesandfastadapter.databinding.FragmentDayliWheatherBinding
+import khrushchev.ilya.wheathercouroutinesandfastadapter.hourwheatherscreen.ui.HourWeatherFragment
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.di.MainScreenComponent.Builder.Companion.build
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.di.ViewModelProviderFactory
 import kotlinx.coroutines.flow.collect
@@ -57,8 +58,8 @@ class DayliWhetherFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         lifecycleScope.launchWhenStarted {
-            viewModel.weatherFlow.collect {
-                it.map { DayliWeatherItem(it) }.also {
+            viewModel.weatherFlow().collect {
+                it.map { DayliWeatherItem(it, viewModel::onItemClick) }.also {
                     val diff = FastAdapterDiffUtil.calculateDiff(dayliWeatherAdapter, it)
                     FastAdapterDiffUtil[dayliWeatherAdapter] = diff
                 }
@@ -79,6 +80,16 @@ class DayliWhetherFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.currentCity.collect {
                 binding.header.cityName.text = it
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.openWeatherByHour.collect {
+                val fragment = HourWeatherFragment()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack(this::class.simpleName)
+                    .setReorderingAllowed(true)
+                    .commit()
             }
         }
     }

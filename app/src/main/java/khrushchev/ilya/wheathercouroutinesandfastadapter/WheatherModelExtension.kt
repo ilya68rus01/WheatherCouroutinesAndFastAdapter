@@ -1,6 +1,8 @@
 package khrushchev.ilya.wheathercouroutinesandfastadapter
 
+import khrushchev.ilya.wheatherapp.models.ListWheatherModel
 import khrushchev.ilya.wheatherapp.models.WheatherModel
+import khrushchev.ilya.wheathercouroutinesandfastadapter.hourwheatherscreen.WheatherOnHourModel
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.DayliWheatherModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,3 +37,12 @@ fun List<DayliWheatherModel>.filterByArrangeDate(): List<DayliWheatherModel> {
         }
     }
 }
+
+fun List<ListWheatherModel>.mapToHourModel() =
+    map {
+        val formatterToDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val formatterFromDateToString = SimpleDateFormat("dd.MM.yyyy EEEE", Locale.getDefault())
+        val date = formatterToDate.parse(it.dt_txt)
+        val formattedDate = formatterFromDateToString.format(date)
+        WheatherOnHourModel(it.mainWeather.temp, formattedDate, it.weather.first().icon)
+    }
