@@ -84,9 +84,8 @@ class DayliWhetherFragment : Fragment() {
         }
         lifecycleScope.launchWhenStarted {
             viewModel.openWeatherByHour.collect {
-                val fragment = HourWeatherFragment()
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, fragment)
+                    .replace(R.id.container, HourWeatherFragment.createNewInstance(it))
                     .addToBackStack(this::class.simpleName)
                     .setReorderingAllowed(true)
                     .commit()
@@ -94,9 +93,9 @@ class DayliWhetherFragment : Fragment() {
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }
