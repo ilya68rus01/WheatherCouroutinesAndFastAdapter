@@ -12,6 +12,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
 import com.squareup.picasso.Picasso
+import khrushchev.ilya.wheathercouroutinesandfastadapter.R
 import khrushchev.ilya.wheathercouroutinesandfastadapter.databinding.FragmentDayliWheatherBinding
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.di.MainScreenComponent.Builder.Companion.build
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.di.ViewModelProviderFactory
@@ -69,10 +70,10 @@ class DayliWhetherFragment : Fragment() {
                     .load("https://openweathermap.org/img/wn/${it.wheatherIconUrl}@4x.png")
                     .into(binding.header.weatherIcon)
                 binding.header.description.text = it.description
-                binding.header.temp.text = it.temp
-                binding.header.pressure.text = it.pressure
-                binding.header.wind.text = it.wind
-                binding.header.visibility.text = it.visibility
+                binding.header.temp.text = context?.getString(R.string.gradus, it.temp)
+                binding.header.pressure.text = context?.getString(R.string.mm_rt_st, it.pressure)
+                binding.header.wind.text = context?.getString(R.string.meter_in_second, it.wind)
+                binding.header.visibility.text = context?.getString(R.string.meter, it.visibility)
             }
         }
         lifecycleScope.launchWhenStarted {

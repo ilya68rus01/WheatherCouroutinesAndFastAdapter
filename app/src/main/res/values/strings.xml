@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">WheatherCouroutinesAndFastAdapter</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="meter_in_second">%s м/с</string>
+    <string name="gradus">%s °С</string>
+    <string name="mm_rt_st">%s мм. рт. ст.</string>
+    <string name="meter">%s м</string>
 </resources>
