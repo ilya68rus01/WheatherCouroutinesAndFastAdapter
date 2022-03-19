@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class WheatherOnHourModel(
-    val temp: Float,
+    val temp: String,
     val date: String,
     val wheatherIconUrl: String
 ) : Parcelable

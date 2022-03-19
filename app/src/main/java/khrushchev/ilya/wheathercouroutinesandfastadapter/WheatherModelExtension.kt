@@ -44,5 +44,6 @@ fun List<ListWheatherModel>.mapToHourModel() =
         val formatterFromDateToString = SimpleDateFormat("dd.MM.yyyy EEEE", Locale.getDefault())
         val date = formatterToDate.parse(it.dt_txt)
         val formattedDate = formatterFromDateToString.format(date)
-        WheatherOnHourModel(it.mainWeather.temp, formattedDate, it.weather.first().icon)
+        val temp = (it.mainWeather.temp - 273f).toInt().toString()
+        WheatherOnHourModel(temp, formattedDate, it.weather.first().icon)
     }
