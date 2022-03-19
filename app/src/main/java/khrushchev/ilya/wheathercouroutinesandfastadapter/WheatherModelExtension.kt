@@ -12,11 +12,11 @@ fun WheatherModel.mapToDayliWheatherModel(): List<DayliWheatherModel> =
         val date = formatterToDate.parse(it.dt_txt)
         val formattedDate = formatterFromDateToString.format(date)
         val description = it.weather.first().description
-        val wind = it.wind.speed.toInt()
-        val pressure = it.mainWeather.pressure
+        val wind = it.wind.speed.toInt().toString()
+        val pressure = (it.mainWeather.pressure * 0.75f).toInt().toString()
         val temp = (it.mainWeather.temp - 273f).toInt()
         val icon = it.weather.first().icon
-        DayliWheatherModel(formattedDate, temp.toString(), icon, pressure, wind, description)
+        DayliWheatherModel(formattedDate, temp.toString(), icon, pressure, wind, description, it.visibility.toString())
     }
 
 fun List<DayliWheatherModel>.filterByArrangeDate(): List<DayliWheatherModel> {

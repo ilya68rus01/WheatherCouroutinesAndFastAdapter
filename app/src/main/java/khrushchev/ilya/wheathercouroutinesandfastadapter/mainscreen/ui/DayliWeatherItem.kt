@@ -3,6 +3,7 @@ package khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
+import com.squareup.picasso.Picasso
 import khrushchev.ilya.wheathercouroutinesandfastadapter.R
 import khrushchev.ilya.wheathercouroutinesandfastadapter.databinding.DayliWeatherItemBinding
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.DayliWheatherModel
@@ -28,5 +29,8 @@ class DayliWeatherItem(
         binding.pressure.text = dayliModel.pressure.toString()
         binding.temp.text = dayliModel.temp
         binding.wind.text = dayliModel.wind.toString()
+        Picasso.get()
+            .load("https://openweathermap.org/img/wn/${dayliModel.wheatherIconUrl}@2x.png")
+            .into(binding.img)
     }
 }

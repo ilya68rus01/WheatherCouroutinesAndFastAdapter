@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
+import com.squareup.picasso.Picasso
 import khrushchev.ilya.wheathercouroutinesandfastadapter.databinding.FragmentDayliWheatherBinding
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.di.MainScreenComponent.Builder.Companion.build
 import khrushchev.ilya.wheathercouroutinesandfastadapter.mainscreen.di.ViewModelProviderFactory
@@ -64,8 +65,14 @@ class DayliWhetherFragment : Fragment() {
         }
         lifecycleScope.launchWhenStarted {
             viewModel.currentWeather.collect {
+                Picasso.get()
+                    .load("https://openweathermap.org/img/wn/${it.wheatherIconUrl}@4x.png")
+                    .into(binding.header.weatherIcon)
                 binding.header.description.text = it.description
                 binding.header.temp.text = it.temp
+                binding.header.pressure.text = it.pressure
+                binding.header.wind.text = it.wind
+                binding.header.visibility.text = it.visibility
             }
         }
         lifecycleScope.launchWhenStarted {
